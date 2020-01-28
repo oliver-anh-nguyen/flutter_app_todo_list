@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app_todo_list/bloc/todo_bloc.dart';
+import 'package:flutter_app_todo_list/db/todo_database.dart';
 import 'package:flutter_app_todo_list/todo/todo_list_container.dart';
 import 'package:provider/provider.dart';
 
-void main() => runApp(MyApp());
+Future main() async {
+  await ToDoDatabase.instance.init();
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.

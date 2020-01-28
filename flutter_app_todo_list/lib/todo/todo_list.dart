@@ -10,6 +10,15 @@ class ToDoList extends StatefulWidget {
 }
 
 class _ToDoListState extends State<ToDoList> {
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    var bloc = Provider.of<TodoBloc>(context);
+    bloc.initData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Consumer<TodoBloc>(
@@ -38,15 +47,23 @@ class _ToDoListState extends State<ToDoList> {
                   );
                 },
               );
-            case ConnectionState.none:
-            default:
+            case ConnectionState.waiting:
               return Center(
                 child: Container(
                   width: 70,
                   height: 70,
-                  child: CircularProgressIndicator(),
+                  child: Text("Empty", style: TextStyle(fontSize: 20),),
                 ),
               );
+            case ConnectionState.none:
+            default:
+            return Center(
+              child: Container(
+                width: 70,
+                height: 70,
+                child: CircularProgressIndicator(),
+              ),
+            );
           }
 
         }
